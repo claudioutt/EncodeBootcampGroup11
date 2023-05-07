@@ -65,3 +65,31 @@ Proposal 2 Risotto has 2 votes
 
 Risotto is in the lead!
 
+------
+Giovanni voted also for proposal Risotto, since he is Italian it was obvious!
+
+PS C:\Users\giopag81\Solidity\encode-week2> yarn run ts-node --files scripts\vote.ts 2
+Connecting to blockchain
+Using signer with address 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
+Alchemy key is of length 32
+The last block is 8959083
+Wallet balance is 27.520694318863715 ETH
+Attaching to Ballot contract
+Winner at the moment is Risotto
+Proposals:
+Proposal 0 is Roast Beef
+Proposal 1 is Frankfurter
+Proposal 2 is Risotto
+Tx hash is 0xe12bacb3c0bf076ae507a59d67b489d0f5b03973bcbe8ba89bd94c3a695b5d92 in block 8959085
+
+
+Now Risotto is the winner and there is nothing we can do about it!
+
+PS C:\Users\giopag81\Solidity\encode-week2> yarn hardhat run scripts/winner.ts
+Connecting to blockchain
+The last block is 8959099
+Attaching to Ballot contract
+Winner at the moment is Risotto
+Proposal 0 Roast Beef has 0 votes
+Proposal 1 Frankfurter has 1 votes
+Proposal 2 Risotto has 3 votes
