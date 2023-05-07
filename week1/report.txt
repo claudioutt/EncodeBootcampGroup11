@@ -1,0 +1,39 @@
+Claudio:
+With the first transaction I deployed the helloWorld.sol contract from lesson 4 on the goerli chain via Remix 
+(https://goerli.etherscan.io/tx/0xbf5c4ddfb36c7cff677d661798f41fcd05cce560375ecd893d024d61c4f84985)
+
+In the next transaction I called the setText with the function parameter string "testTransaction" to change the state variable.
+(https://goerli.etherscan.io/tx/0x79b523169344e8e1c5a77d293fede28b3ae740dc219a9d57396d79e3f27508e8) 
+
+In my last transaction I transfered the ownership of the contract to 0x95f928D66a508b486f82B5Be339D3ec6D8c43335 via calling the transferOwnership function
+(https://goerli.etherscan.io/tx/0xb91b1cf0c1f81879dd85ada6aa40e475f89de19efed99d97b3ce4882fce0abfa) 
+
+Chris:
+Now that I have ownership, I first verified that my address is indeed the owner by calling the helloWorld function (https://goerli.etherscan.io/address/0xc960aaf501dbae5d46fbce468043fc9a8588a218#readContract)
+
+I can see that I am the owner, so I changed the text variable using the setText function that only the owner can call 
+(https://goerli.etherscan.io/tx/0xdcb281d833f5cbebb764233f4ee173cd55461301954dd082c112f4fc9c7e241d)
+
+The new value of text is 'group11rocks'. I verified this by calling the helloWorld function again. 
+
+Giovanni:
+I connected the Interface implementing the 3 main smart contract functions at the address of the smartcontract originally deployed by Claudio: https://goerli.etherscan.io/tx/0xbf5c4ddfb36c7cff677d661798f41fcd05cce560375ecd893d024d61c4f84985
+
+I verfied the new value added by Chris by calling the function helloWorld() and indeed it returned the string string: "group11rocks"
+
+I tried to modify the text but since I am not the owner, I received the below error message as expected:
+"Gas estimation errored with the following message (see below). The transaction execution will likely fail. Do you want to force sending?
+Returned error: {"jsonrpc":"2.0","error":"execution reverted: Caller is not the owner","id":189838949333215}"
+
+Waiting for Chris to make my metamask address 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457 the new owner of the contract to intercact again
+
+Chris:
+I made Giovanni the owner (https://goerli.etherscan.io/tx/0x8e39187854a46e0c51ac54b3461eac0a16f8287e50967643caace5e9d4f38be1)
+
+By calling the public owner function I can see that 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457 is now the owner
+
+Giovanni:
+As the new owner, I was able to set a new text calling the function setText():
+https://goerli.etherscan.io/tx/0xa996f7a8ded787ddea65fd7e1e1dd08fab2ad1e31905019d9fe8e983f3ff32ac
+
+I was able to retrieve the new text by calling the helloWorld() function
