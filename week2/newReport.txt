@@ -46,3 +46,7 @@ Proposal 2 is Risotto
 I will delegate my vote to 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
 Tx hash is 0x5b3a6eeb0b195ee45fa4012e38a23992736f3f7b5bf1d449ff704bac3cdc589d in block 8958680
 -------
+
+Claudio voted for proposal 'Risotto' using their vote and their delegated vote 
+https://goerli.etherscan.io/tx/0xe7464246294c9eb7600f0007a8ede0b7fe089ead83351d0d997382810184128b
+
