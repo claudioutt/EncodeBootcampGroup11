@@ -1,0 +1,48 @@
+We first ran tests on the Ballot.sol contract using the script test.ts
+All tests run, and we proceed to deploying the contract 
+
+Next we deploy the contract using deploy.ts 
+-------
+[christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/deploy.ts
+Connecting to blockchain
+Using address 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
+Alchemy key is of length 32
+The last block is 8958412
+Wallet balance is 120.2573017165545 ETH
+Deploying Ballot contract
+Proposals: 
+Proposal N. 1: Roast Beef
+Proposal N. 2: Frankfurter
+Proposal N. 3: Risotto
+The ballot contract deployed at 0x1B4F2137cBC46F36dE0d426145307CA47A07943F at block 8958413
+Giving right to vote to 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
+Tx hash is 0x95603e8c63c0bd1859ddceff8244279655bd2e1d72f0c663858d6fbef491bf1a in block 8958414
+Giving right to vote to 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
+Tx hash is 0x90f7e6ebbd1bb574bf29eb8d1a09041911c9c8755770f83d5be8fa0fac5b4e7c in block 8958415
+Giving right to vote to 0x8e241633b239865f971bb21604aBaAADdC34eb50
+Tx hash is 0x1956ed6092c682282a0fc7c7c2a85c080dd7b7906cd41774b699cd402ba2154a in block 8958416
+Giving right to vote to 0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc
+Tx hash is 0x8a577a787c1de971f19170bbe3e4ed1c6a738cce6304607fbf9d8b9bc495b5aa in block 8958417
+-------
+
+Now one of the voters decides to vote for a proposal 'Frankfurter'
+https://goerli.etherscan.io/tx/0x77cace19851dde63baa080f29db875981d7623108ef2774a34258b2a3f33f1d2
+
+Then the chairperson delegates their vote to Claudio
+
+-------
+[christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/delegate.ts
+Connecting to blockchain
+Using signer with address 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
+Alchemy key is of length 32
+The last block is 8958679
+Wallet balance is 105.23491313702863 ETH
+Attaching to Ballot contract
+Winner at the moment is Frankfurter
+Proposals: 
+Proposal 0 is Roast Beef
+Proposal 1 is Frankfurter
+Proposal 2 is Risotto
+I will delegate my vote to 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
+Tx hash is 0x5b3a6eeb0b195ee45fa4012e38a23992736f3f7b5bf1d449ff704bac3cdc589d in block 8958680
+-------
