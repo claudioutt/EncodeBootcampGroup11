@@ -1,5 +1,0 @@
-Claudio: I deployed the ballot.sol contract on sepolia
-        (https://sepolia.etherscan.io/tx/0x754478e94d83fb8e2f9bd2dad951b61bedcafc21b00a0c3a40cb1f39ec98a982)
-        via running the script deploy.ts in ballotRepo/Scripts. After deploying
-        the script gave all 4 remaining members of Group 11 voting rights via calling giveRightToVote with 4 different
-        addresses. -> https://sepolia.etherscan.io/address/0xa262656989d4a6cdd68dd7c1b7c307d6e3b62545
