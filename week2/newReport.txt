@@ -50,3 +50,18 @@ Tx hash is 0x5b3a6eeb0b195ee45fa4012e38a23992736f3f7b5bf1d449ff704bac3cdc589d in
 Claudio voted for proposal 'Risotto' using their vote and their delegated vote 
 https://goerli.etherscan.io/tx/0xe7464246294c9eb7600f0007a8ede0b7fe089ead83351d0d997382810184128b
 
+We run script winner.ts to see the current standing
+
+-------
+[christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/winner.ts
+Connecting to blockchain
+The last block is 8958792
+Attaching to Ballot contract
+Winner at the moment is Risotto
+Proposal 0 Roast Beef has 0 votes
+Proposal 1 Frankfurter has 1 votes
+Proposal 2 Risotto has 2 votes
+-------
+
+Risotto is in the lead!
+
