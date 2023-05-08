@@ -212,6 +212,20 @@ describe("Ballot", function () {
     });
   });
 
+  describe("when someone interact with the winnerName function after one vote is cast for the first proposal", function () {
+    // TODO
+    it("should return name of proposal 0", async () => {
+      const accounts = await ethers.getSigners();
+      const chairman = accounts[0];
+      // chairman votes for "Proposal 1"
+      await ballotContract.connect(chairman).vote(0);
+      // convert Proposal 1 string to its byte32 version
+      const prop0Byte32 = ethers.utils.formatBytes32String("Proposal 1");
+      expect (await ballotContract.connect(chairman)
+      .winnerName()).to.be.eq(prop0Byte32);//
+    });
+  });
+
   describe("when someone interact with the winningProposal function and winnerName after 5 random votes are cast for the proposals", function () {
     // TODO
     it("should return the name of the winner proposal", async () => {
@@ -221,7 +235,7 @@ describe("Ballot", function () {
       console.log(voteCounts);
       var winningCount = 0;
       var winner = 0;
-      const numVoters = 5;
+      const numVoters = 4;
       for (let index = 0; index <= numVoters; index++) {
         if (index >0) {
           await ballotContract.connect(chairperson).
@@ -232,16 +246,17 @@ describe("Ballot", function () {
         const randProposalIndex = PROPOSALS.indexOf(randProposal);
         voteCounts[randProposalIndex]++;
         await ballotContract.connect(accounts[index]).vote(randProposalIndex);
+        await ballotContract.winningProposal();
         if (voteCounts[randProposalIndex] > winningCount) {
           winningCount = voteCounts[randProposalIndex];
           winner = randProposalIndex;
         }
         console.log("vote count is: " +  voteCounts);
+        
       }  
-      console.log("The winner is: " + PROPOSALS[winner]);
-      const propWinnerByte32 = ethers.utils.formatBytes32String(PROPOSALS[winner]);
-      expect (await ballotContract.connect(chairperson)
-      .winnerName()).to.be.eq(propWinnerByte32);
+    console.log("The winner is: " + PROPOSALS[winner]);
+    const propWinnerByte32 = ethers.utils.formatBytes32String(PROPOSALS[winner]);
+    expect (await ballotContract.winnerName()).to.be.eq(propWinnerByte32);
     });
   });
 });
