@@ -91,8 +91,9 @@ Proposal 1 is Frankfurter
 Proposal 2 is Risotto
 Tx hash is 0xe12bacb3c0bf076ae507a59d67b489d0f5b03973bcbe8ba89bd94c3a695b5d92 in block 8959085
 
-
+-------
 Now Risotto is the winner and there is nothing we can do about it!
+-------
 
 PS C:\Users\giopag81\Solidity\encode-week2> yarn hardhat run scripts/winner.ts
 Connecting to blockchain
@@ -102,3 +103,21 @@ Winner at the moment is Risotto
 Proposal 0 Roast Beef has 0 votes
 Proposal 1 Frankfurter has 1 votes
 Proposal 2 Risotto has 3 votes
+
+-------
+
+chairperson tried to vote again using voting.ts but the tx fails
+
+-------
+
+[christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/voting.ts
+<ref *1> Error: cannot estimate gas; transaction may fail or may require manual gas limit [ See: https://links.ethers.org/v5-errors-UNPREDICTABLE_GAS_LIMIT ] (error={"reason":"execution reverted: Already voted.","code":"UNPREDICTABLE_GAS_LIMIT","method":"estimateGas","transaction":{"from":"0x75dE164aa2f83625def6257cC99d40C8C4f659d9","maxPriorityFeePerGas":{"type":"BigNumber","hex":"0x59682f00"},"maxFeePerGas":{"type":"BigNumber","hex":"0x08f59d267162"},"to":"0x1B4F2137cBC46F36dE0d426145307CA47A07943F","data":"0x0121b93f0000000000000000000000000000000000000000000000000000000000000001","type":2,"accessList":null},"error":{"reason":"processing response error","code":"SERVER_ERROR","body":"{\"jsonrpc\":\"2.0\",\"id\":45,\"error\":{\"code\":3,\"message\":\"execution reverted: Already voted.\",\"data\":\"0x
+
+
+------
+
+
+While there is something in the error message about gas, the message in the error is 'Already voted' so we can see that this works as expected. Strictly speaking the chairperson did not vote, but delegated. 
+
+
+
