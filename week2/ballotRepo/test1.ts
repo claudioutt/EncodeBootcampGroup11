@@ -124,11 +124,9 @@ describe("Ballot", function () {
         // voter2 can't vote
         await ballotContract.connect(chairperson)
             .giveRightToVote(voter1.address);
-        // voter 1 delegate to voter2
+        // chairperson delegate to voter1
         await expect(ballotContract.connect(chairperson)
-        .delegate(voter1.address)).to.be.ok;
-            // voter 2 can now vote
-        //expect(await ballotContract.connect(voter2).vote(0)).to.be.ok;     
+        .delegate(voter1.address)).to.be.ok; 
   });
 });
 
