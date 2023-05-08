@@ -24,6 +24,17 @@ Tx hash is 0x1956ed6092c682282a0fc7c7c2a85c080dd7b7906cd41774b699cd402ba2154a in
 Giving right to vote to 0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc
 Tx hash is 0x8a577a787c1de971f19170bbe3e4ed1c6a738cce6304607fbf9d8b9bc495b5aa in block 8958417
 -------
+Using the Voting.ts script we were able to vote on the proposal. We encountered some issues with this as the function name was abstractred as a const. The compiler was not able to estimate gas on that. after hardcoding the name of the function in the code, the script run smooth!
+
+Giulio voted 1 even though he is italian - risotto aint his favorite food.
+
+..\project> yarn hardhat run ./scripts/Voting.ts
+
+Transaction hash: 0x5632e8ab5f17344d7a2bc0b235c0f83fb366a789e07fa08373b8250d9fee9f27
+Transaction mined: 0x5632e8ab5f17344d7a2bc0b235c0f83fb366a789e07fa08373b8250d9fee9f27
+
+Gas used: 92915
+------
 
 Now one of the voters decides to vote for a proposal 'Frankfurter'
 https://goerli.etherscan.io/tx/0x77cace19851dde63baa080f29db875981d7623108ef2774a34258b2a3f33f1d2
