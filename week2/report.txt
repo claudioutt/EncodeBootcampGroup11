@@ -1,3 +1,10 @@
+Discord Names:
+ChrisTDick
+desmo
+ZegDatHetKan
+Claudio1337
+gioben
+
 We first ran tests on the Ballot.sol contract using the script test.ts
 All tests run, and we proceed to deploying the contract 
 
@@ -117,7 +124,18 @@ chairperson tried to vote again using voting.ts but the tx fails
 ------
 
 
-While there is something in the error message about gas, the message in the error is 'Already voted' so we can see that this works as expected. Strictly speaking the chairperson did not vote, but delegated. 
+While there is something in the error message about gas, the message in the error is 'Already voted' so we can see that this works as expected. 
+
+Strictly speaking the chairperson did not vote, but delegated. 
+
+The final result is that Risotto wins with 3 votes, Frankfurter in second place with 1 vote and Roast Beef has 0 votes.
+
+Discord Names:
+ChrisTDick
+desmo
+ZegDatHetKan
+Claudio1337
+gioben
 
 
 
