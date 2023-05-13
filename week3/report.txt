@@ -1,0 +1,81 @@
+Group 11 Week 3 Weekend Project
+
+This week Group 11 are deciding where to go on holiday. They have five beach towns to chose from. 
+
+To make the decision Group 11 are going to vote using a Tokenized Ballot. 
+
+First TokenizedBallot.sol was written as the ballot contract.
+MyERC20Votes.sol is used as the underlying token contract.
+Both are tested using TokenBallotTest.ts
+
+--------
+[christopherdick:~/git/solidity_playground]$ npx hardhat test ./tests/TokenBallotTest.ts
+
+
+  Tokenized Ballot
+    When the ballot contract is deployed
+      ✔ Each proposal starts with 0 votes (41ms)
+      ✔ uses a valid ERC20 as payment token (42ms)
+    When a user is allocated a number of tokens
+      ✔ The total supply increases appropriately
+      ✔ The user has the right number of tokens but no votes
+      When a user delegates to themselves
+        ✔ The number of votes updates correctly
+        ✔ The user is able to vote on a proposal (46ms)
+      When a user sends tokens to another user
+        ✔ Each user has the correct number of votes and tokens
+        ✔ Users cannot vote with tokens they have sent
+        When a token receiptant delegates to themselves
+          ✔ The number of current votes updates correctly
+          ✔ The number of past votes does not change
+          ✔ The user is not able to vote on a proposal
+          Winner is correct
+            ✔ Winner is correct
+
+
+  12 passing (7s)
+--------
+
+Next, TokenBallotTest.ts is used to deploy the token contract, the ballot contract and mint tokens for each of the voters.
+The token contract is deployed at https://goerli.etherscan.io/address/0xa5d739c9bc437c0cb02c0e7abc0fe55ea38c161c
+The ballot contract is deployed at https://goerli.etherscan.io/address/0x4D29727e409Ab710964F99c6275Df5726582e4F0
+
+--------
+[christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/deployMintVotingTokens.ts 
+Connecting to blockchain
+Using address 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
+Alchemy key is of length 32
+The last block is 8992989
+The ballot will end at block number 9007389
+Wallet balance is 263.96606378588706 ETH
+
+
+Deploying Ballot contract
+Proposals: 
+Proposal N. 1: Amalfi
+Proposal N. 2: Cannes
+Proposal N. 3: Brighton
+Proposal N. 4: Jersey Shore
+Proposal N. 5: Barcelona
+
+
+The ballot contract deployed at 0x4D29727e409Ab710964F99c6275Df5726582e4F0 at block 8992991
+Minter role assigned at block 8992992
+
+Minting 25 tokens for voter 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
+Minting hash is 0x1f3dbbbb8294da5e750df2585d66e3cf37f1e4b54fb1bf608cce1a1c1558b954 in block 8992993
+
+
+Minting 25 tokens for voter 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
+Minting hash is 0x502a2f866eedfc32f5f66bf1527fbf168610e43081d4cb5f42b641e60bd9e5c6 in block 8992994
+
+
+Minting 25 tokens for voter 0x8e241633b239865f971bb21604aBaAADdC34eb50
+Minting hash is 0x852e322bda57a6231f25fb506ae80d606fc39f5219ec26e07fe2dddef2b8a35c in block 8992995
+
+
+Minting 25 tokens for voter 0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc
+Minting hash is 0xde317c786b1c215650ed83298b0e706de456de661ca00c7456ea1e3634a64526 in block 8992996
+--------
+
+Then, 
