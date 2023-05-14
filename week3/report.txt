@@ -37,17 +37,17 @@ Both are tested using TokenBallotTest.ts
 --------
 
 Next, TokenBallotTest.ts is used to deploy the token contract, the ballot contract and mint tokens for each of the voters.
-The token contract is deployed at https://goerli.etherscan.io/address/0xa5d739c9bc437c0cb02c0e7abc0fe55ea38c161c
-The ballot contract is deployed at https://goerli.etherscan.io/address/0x4D29727e409Ab710964F99c6275Df5726582e4F0
+The token contract is deployed at https://goerli.etherscan.io/address/0x62Cc17cC0f6A38C755BEEAb6266454Aeb1A43B68
+The ballot contract is deployed at https://goerli.etherscan.io/address/0x8313496a3568f88cead1425f2BfCCDCe0adBB9E3
 
 --------
 [christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/deployMintVotingTokens.ts 
 Connecting to blockchain
 Using address 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
 Alchemy key is of length 32
-The last block is 8992989
-The ballot will end at block number 9007389
-Wallet balance is 263.96606378588706 ETH
+The last block is 8999054
+The ballot will end at block number 8999154
+Wallet balance is 263.958248062786 ETH
 
 
 Deploying Ballot contract
@@ -59,23 +59,28 @@ Proposal N. 4: Jersey Shore
 Proposal N. 5: Barcelona
 
 
-The ballot contract deployed at 0x4D29727e409Ab710964F99c6275Df5726582e4F0 at block 8992991
-Minter role assigned at block 8992992
+The token deployed at 0x62Cc17cC0f6A38C755BEEAb6266454Aeb1A43B68 at block 8999056
+The ballot contract deployed at 0x8313496a3568f88cead1425f2BfCCDCe0adBB9E3 at block 8999058
+Minter role assigned at block 8999060
 
-Minting 25 tokens for voter 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
-Minting hash is 0x1f3dbbbb8294da5e750df2585d66e3cf37f1e4b54fb1bf608cce1a1c1558b954 in block 8992993
-
-
-Minting 25 tokens for voter 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
-Minting hash is 0x502a2f866eedfc32f5f66bf1527fbf168610e43081d4cb5f42b641e60bd9e5c6 in block 8992994
+Minting 20 tokens for voter 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
+Minting hash is 0x3e52e1d517d382f202d21aecfd977d4a2f94de796d8caab4f7837f5ffdecfe34 in block 8999061
 
 
-Minting 25 tokens for voter 0x8e241633b239865f971bb21604aBaAADdC34eb50
-Minting hash is 0x852e322bda57a6231f25fb506ae80d606fc39f5219ec26e07fe2dddef2b8a35c in block 8992995
+Minting 20 tokens for voter 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
+Minting hash is 0x88fcd3cac92f20585590c79942090f5953d712ec1d9624c2d0551b061445f09d in block 8999062
 
 
-Minting 25 tokens for voter 0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc
-Minting hash is 0xde317c786b1c215650ed83298b0e706de456de661ca00c7456ea1e3634a64526 in block 8992996
+Minting 20 tokens for voter 0x8e241633b239865f971bb21604aBaAADdC34eb50
+Minting hash is 0x9745185cec1f213fef219634e81e128429a640cf5972a40426816f2de57a3232 in block 8999063
+
+
+Minting 20 tokens for voter 0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc
+Minting hash is 0x37c5807cc98a2773dcb6ecfe76323041a8b66b71953566b8ff46b4a917c35db5 in block 8999064
+
+
+Minting 20 tokens for voter 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
+Minting hash is 0x32b83279785af601da3533eaf355c9a59db44233a9d2b31299319c58527387ae in block 8999065
 --------
 
 Then, 
