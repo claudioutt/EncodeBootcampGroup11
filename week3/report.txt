@@ -83,4 +83,19 @@ Minting 20 tokens for voter 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
 Minting hash is 0x32b83279785af601da3533eaf355c9a59db44233a9d2b31299319c58527387ae in block 8999065
 --------
 
-Then, 
+Then, the first person 0x75dE decides to delegate to 0x034CF
+
+--------
+[christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/delegateTokenVote.ts
+Delegating to 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8
+Transaction hash: 0x43bdf4dc1716cee92d10a5015290ae126192e0d9a8bf3fa7eaf04547057e1feb
+Block Number: 8999118
+Transaction mined: 0x43bdf4dc1716cee92d10a5015290ae126192e0d9a8bf3fa7eaf04547057e1feb
+Gas used: 96545
+--------
+
+For 0xFc4A978, they self-delegate
+
+--------
+>>>> enter command line output here <<<<
+--------
