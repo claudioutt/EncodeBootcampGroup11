@@ -1,16 +1,22 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { MyERC20Votes__factory, MyERC20Votes, TokenizedBallot, TokenizedBallot__factory } from "../typechain-types";
-import { BigNumber, Signer } from "ethers";
-import { SignerWithAddress } from  "@nomiclabs/hardhat-ethers/signers"
-import { beforeEach } from "mocha";
-import { token } from "../typechain-types/@openzeppelin/contracts";
+import { TokenizedBallot, TokenizedBallot__factory, MyERC20Votes, MyERC20Votes__factory } from "../typechain-types";
+import { BigNumber } from "ethers";
+import * as dotenv from 'dotenv';
+dotenv.config()
 
 const PROPOSALS = ['Amalfi', 'Cannes', 'Brighton', 'Jersey Shore', 'Barcelona'];
-const TARGET_BLOCK = 23;
-const NUM_TOKENS_TO_MINT = 15;
-const NUM_VOTES_TO_PLACE = 5;
-const PROPOSAL_TO_VOTE_ON = 0;
+
+const VOTERS = ['0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457', 
+'0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8', 
+'0x8e241633b239865f971bb21604aBaAADdC34eb50', 
+'0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc',
+'0x75dE164aa2f83625def6257cC99d40C8C4f659d9'];
+
+const chairAddress = '0x75dE164aa2f83625def6257cC99d40C8C4f659d9'
+const blockOffset: number = 100;
+const TOTAL_NUM_TOKENS_TO_MINT = 100;
+
 
 function convertStringArrayToBytes32(array: string[]) {
     const bytes32Array = [];
@@ -20,173 +26,62 @@ function convertStringArrayToBytes32(array: string[]) {
     return bytes32Array;
   }
 
-describe("Tokenized Ballot", async () => {
+async function main() {
+
     let ballotContract: TokenizedBallot;
     let token: MyERC20Votes;
-    let deployer: SignerWithAddress;
-    let acc1: SignerWithAddress;
-    let acc2: SignerWithAddress;
+    let targetBlock: Number;
 
-  beforeEach(async () => {
-    // get signers and deploy the token contract
-    [deployer, acc1, acc2] = await ethers.getSigners();
-    const tokenFactory = new MyERC20Votes__factory(deployer);
+    console.log("Connecting to blockchain");
+    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY ?? "");
+    console.log(`Using address ${chairAddress}`);
+    console.log(`Alchemy key is of length ${process.env.ALCHEMY_API_KEY?.length}`)
+    const provider = new ethers.providers.AlchemyProvider("goerli", process.env.ALCHEMY_API_KEY);
+    const lastBlock = await provider.getBlock("latest");
+    console.log(`The last block is ${lastBlock.number}`)
+    targetBlock = lastBlock.number + blockOffset;
+    console.log(`The ballot will end at block number ${targetBlock}`)
+
+    const signer = wallet.connect(provider);
+    const balance = await signer.getBalance();
+    console.log(`Wallet balance is ${Number(balance) / 1e18} ETH`); 
+    console.log("\n")
+    console.log("Deploying Ballot contract");
+    console.log("Proposals: ");
+    PROPOSALS.forEach((element, index) => {
+        console.log(`Proposal N. ${index + 1}: ${element}`);
+    });
+    console.log("\n")
+
+    const tokenFactory = new MyERC20Votes__factory(signer);
     token = await tokenFactory.deploy();
     await token.deployed();
-
-    // deploy the tokenized ballot contract
-    const ballotFactory = new TokenizedBallot__factory(deployer);
+    const deployTokenTx = token.deployTransaction;
+    console.log(`The token deployed at ${token.address} at block ${deployTokenTx.blockNumber}`);
+    const ballotFactory = new TokenizedBallot__factory(signer);
     const bytesProposals = convertStringArrayToBytes32(PROPOSALS);
-    ballotContract = await ballotFactory.deploy(bytesProposals, token.address, TARGET_BLOCK); 
+    ballotContract = await ballotFactory.deploy(bytesProposals, token.address, BigNumber.from(targetBlock)); 
     await ballotContract.deployed();
-  });
+    const deployTx = ballotContract.deployTransaction;
+    console.log(`The ballot contract deployed at ${ballotContract.address} at block ${deployTx.blockNumber}`);
 
-  describe("When the ballot contract is deployed", async () => {
-    it("Each proposal starts with 0 votes", async () => {
-        const numOfProposals = PROPOSALS.length
-        for (let i=0; i<numOfProposals; i++) {
-            const numVotes = (await ballotContract.proposals(i)).voteCount;
-            expect(numVotes).to.eq(0);
-        }
-    });
-
-    it("uses a valid ERC20 as payment token", async () => {
-        const tokenAddress = await ballotContract.tokenContract();
-        const tokenContractFactory = new MyERC20Votes__factory(deployer);
-        const tokenContract = tokenContractFactory.attach(tokenAddress);
-        expect(tokenContract.totalSupply()).not.to.be.reverted;
-        await expect(tokenContract.balanceOf(deployer.address)).not.to.be.reverted;
-        await expect(tokenContract.approve(acc1.address, 0)).not.to.be.reverted;
-    });
-  });
-
-  describe("When a user is allocated a number of tokens", async () => {
-    let tokenBalanceBeforeAllocation: BigNumber; 
-    let totalSupplyBeforeAllocation: BigNumber; 
-
-    beforeEach(async () => {
-      tokenBalanceBeforeAllocation = await token.balanceOf(acc1.address);
-      totalSupplyBeforeAllocation = await token.totalSupply();
-      const minterRole = await token.MINTER_ROLE();
-      const minterRoleTx = await token.connect(deployer).grantRole(minterRole, deployer.address);
-      const minterRoleTxReceipt = await minterRoleTx.wait();
-      const mintTx = await token.connect(deployer).mint(acc1.address, NUM_TOKENS_TO_MINT);
-      const mintTxReceipt = await mintTx.wait();
-    });
-
-    it("The total supply increases appropriately", async () => {
-      const totalSupplyAfterAllocation = await token.totalSupply();
-      const totalSupplyDiff = totalSupplyAfterAllocation.sub(totalSupplyBeforeAllocation);
-      expect(totalSupplyDiff).to.eq(NUM_TOKENS_TO_MINT);
-    });
-
-    it("The user has the right number of tokens but no votes", async () => {
-      const numVotes = await token.getVotes(acc1.address);
-      const numTokens = await token.balanceOf(acc1.address);
-      expect(numVotes).to.eq(0);
-      expect(numTokens).to.eq(NUM_TOKENS_TO_MINT);
-    });
-
-    describe("When a user delegates to themselves", async () => {
-      let numVotesBeforeDelegation: BigNumber; 
-      let proposalVotesBeforeVoting: BigNumber;
-
-      beforeEach(async () => {
-        numVotesBeforeDelegation = await token.getVotes(acc1.address);
-        proposalVotesBeforeVoting = (await ballotContract.proposals(PROPOSAL_TO_VOTE_ON)).voteCount;
-        const delegateTx = await token.connect(acc1).delegate(acc1.address);
-        const delegateTxReceipt = await delegateTx.wait();
-      });
-  
-      it("The number of votes updates correctly", async () => {
-        const numVotesAfterDelegation = await token.getVotes(acc1.address);
-        const numVotesDiff = numVotesAfterDelegation.sub(numVotesBeforeDelegation);
-        expect(numVotesDiff).to.eq(NUM_TOKENS_TO_MINT);
-      });
-  
-      it("The user is able to vote on a proposal", async () => {
-        const voteTx = await ballotContract.connect(acc1).vote(PROPOSAL_TO_VOTE_ON, NUM_VOTES_TO_PLACE)
-        const voteTxReceipt = await voteTx.wait();
-        const proposalVotesAfterVoting = (await ballotContract.proposals(PROPOSAL_TO_VOTE_ON)).voteCount;
-        const voteDiff = proposalVotesAfterVoting.sub(proposalVotesBeforeVoting);
-        expect(voteDiff).to.eq(NUM_VOTES_TO_PLACE);
-      });
-    });
-
-    describe("When a user sends tokens to another user", async () => {
-        let numVotesAcc1BeforeSending: BigNumber; 
-        let numVotesAcc2BeforeSending: BigNumber; 
-        let numTokensAcc1BeforeSending: BigNumber;
-        let numTokensAcc2BeforeSending: BigNumber;
-        let proposalVotesBeforeVoting: BigNumber;
-
-      beforeEach(async () => {
-        numVotesAcc1BeforeSending = await token.getVotes(acc1.address);
-        numVotesAcc2BeforeSending = await token.getVotes(acc2.address);
-        numTokensAcc1BeforeSending = await token.balanceOf(acc1.address);
-        numTokensAcc2BeforeSending = await token.balanceOf(acc2.address);
-        const transferTx = await token.connect(acc1).transfer(acc2.address, NUM_TOKENS_TO_MINT);
-        const transferTxReceipt = await transferTx.wait();
-      });
-
-      it("Each user has the correct number of votes and tokens", async () => {
-        const numVotesAcc1AfterSending = await token.getVotes(acc1.address);
-        const numVotesAcc2AfterSending = await token.getVotes(acc2.address);
-        const numTokensAcc1AfterSending = await token.balanceOf(acc1.address);
-        const numTokensAcc2AfterSending = await token.balanceOf(acc2.address);
-        const tokenBalanceDiffAcc1 = numTokensAcc1BeforeSending.sub(numTokensAcc1AfterSending);
-        const tokenBalanceDiffAcc2 = numTokensAcc2AfterSending.sub(numTokensAcc2BeforeSending);
-        expect(tokenBalanceDiffAcc1).to.eq(NUM_TOKENS_TO_MINT);
-        expect(tokenBalanceDiffAcc2).to.eq(NUM_TOKENS_TO_MINT);
-        const voteDiffAcc1 = numVotesAcc1BeforeSending.sub(numVotesAcc1AfterSending);
-        const voteDiffAcc2 = numVotesAcc2AfterSending.sub(numVotesAcc2BeforeSending);
-        expect(voteDiffAcc1).to.eq(0);
-        expect(voteDiffAcc2).to.eq(0);
-      });
-  
-      it("Users cannot vote with tokens they have sent", async () => {
-        expect(ballotContract.connect(acc1).vote(PROPOSAL_TO_VOTE_ON, NUM_VOTES_TO_PLACE)).to.be.reverted;
-      });
-
-      describe("When a token receiptant delegates to themselves", async () => {
-        let numVotesBeforeDelegation: BigNumber; 
-        let numPastVotesBeforeDelegation: BigNumber; 
-        let proposalVotesBeforeVoting: BigNumber;
-  
-        beforeEach(async () => {
-          numVotesBeforeDelegation = await token.getVotes(acc2.address);
-          numPastVotesBeforeDelegation = await token.getPastVotes(acc2.address, TARGET_BLOCK);
-          proposalVotesBeforeVoting = (await ballotContract.proposals(PROPOSAL_TO_VOTE_ON)).voteCount;
-          const delegateTx = await token.connect(acc2).delegate(acc2.address);
-          const delegateTxReceipt = await delegateTx.wait();
-        });
+    const minterRole = await token.MINTER_ROLE();
+    const minterRoleTx = await token.connect(signer).grantRole(minterRole, signer.address);
+    const minterRoleTxReceipt = await minterRoleTx.wait();
+    console.log(`Minter role assigned at block ${minterRoleTxReceipt.blockNumber}`);
     
-        it("The number of current votes updates correctly", async () => {
-          const numVotesAfterDelegation = await token.getVotes(acc2.address);
-          const numVotesDiff = numVotesAfterDelegation.sub(numVotesBeforeDelegation);
-          expect(numVotesDiff).to.eq(NUM_TOKENS_TO_MINT);
-        });
-    
-        it("The number of past votes does not change", async () => {
-            const numPastVotesAfterDelegation = await token.getPastVotes(acc2.address, TARGET_BLOCK);
-            const numVotesDiff = numPastVotesAfterDelegation.sub(numPastVotesBeforeDelegation);
-            expect(numVotesDiff).to.eq(0);
-          });
+    const token_allocation = TOTAL_NUM_TOKENS_TO_MINT / VOTERS.length;
+    for (let index = 0; index < VOTERS.length; index++) {
+        const voter = VOTERS[index];
+        console.log(`Minting ${token_allocation} tokens for voter ${voter}`);
+        const mintTx = await token.connect(signer).mint(voter, token_allocation);
+        const mintTxReceipt = await mintTx.wait();
+        console.log(`Minting hash is ${mintTxReceipt.transactionHash} in block ${mintTxReceipt.blockNumber}`);
+        console.log("\n");
+    }
+}
 
-        it("The user is not able to vote on a proposal", async () => {
-          expect(ballotContract.connect(acc2).vote(PROPOSAL_TO_VOTE_ON, NUM_VOTES_TO_PLACE)).to.be.reverted;
-        });
-        
-        describe("Winner is correct", async () => {
-            let winnerCheck: String = "none";
-            let mostVotes: BigNumber = BigNumber.from(0);
-            it("Winner is correct", async () => {
-              const winner = await ballotContract.winnerName();
-              const winnerCheck = (await ballotContract.proposals(PROPOSAL_TO_VOTE_ON)).name
-              expect(winner).to.eq(winnerCheck);
-            });
-          });
-      });
-    });
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
 });
