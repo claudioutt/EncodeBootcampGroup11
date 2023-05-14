@@ -99,3 +99,37 @@ For 0xFc4A978, they self-delegate
 --------
 >>>> enter command line output here <<<<
 --------
+
+-----------------------------------------
+I connected to the token contract deplyed by Chris and self deligated the voting power which is now 20.
+Then once I had voting power, I connected to the ballot contract and 
+I split my voting power so that 10 votes went to Proosal 0 and 10 to Proposal 4
+
+PS C:\Users\giopag81\Solidity\encode-week3> yarn hardhat run .\scripts\voteChrisBallot.ts
+Connecting to blockchain
+Infura key is of length 34
+The last block is 8999284
+Using wallet address 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
+My account 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457 has 20
+        decimal units of Chris token
+
+my account 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457 has 0.00000000000000002 units of voting power after transfer
+
+Proposal 0 Amalfi has 0 votes
+Proposal 1 Cannes has 0 votes
+Proposal 2 Brighton has 0 votes
+Proposal 3 Jersey Shore has 0 votes
+Proposal 4 Barcelona has 0 votes
+
+voting....
+
+Proposal 0 Amalfi has 10 votes
+Proposal 1 Cannes has 0 votes
+Proposal 2 Brighton has 0 votes
+Proposal 3 Jersey Shore has 0 votes
+Proposal 4 Barcelonahas 10 votes
+      
+ Below the voting transaction hash:
+ https://goerli.etherscan.io/tx/0x0707b1fe97d938cc9f82e4078bf0e687b6fe25a783c700753b6e7475d00e1d74
+ https://goerli.etherscan.io/tx/0x0f99980e0886b7eb45faa4e681de57ed26092abc0c0921d3a96914efedfcade4
+
