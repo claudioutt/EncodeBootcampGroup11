@@ -83,7 +83,7 @@ Minting 20 tokens for voter 0x75dE164aa2f83625def6257cC99d40C8C4f659d9
 Minting hash is 0x32b83279785af601da3533eaf355c9a59db44233a9d2b31299319c58527387ae in block 8999065
 --------
 
-Then, the first person 0x75dE decides to delegate to 0x034CF
+Then, the Chris with address 0x75dE decides to delegate to 0x034CF using delegateTokenVote.ts
 
 --------
 [christopherdick:~/git/solidity_playground]$ npx ts-node --files ./scripts/delegateTokenVote.ts
