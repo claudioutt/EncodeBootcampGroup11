@@ -6,7 +6,7 @@ require('dotenv').config();
 
 
 const MINT_VALUE = ethers.utils.parseUnits("0.1")
-const GAS_LIMIT = 3000000;
+
 
 const VOTERS = ['0x8ab781088D9D97Aa7b48118964a3157c13a0cBEc', 
 '0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8', 
