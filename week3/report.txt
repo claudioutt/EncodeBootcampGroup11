@@ -127,4 +127,24 @@ Proposal 4 Barcelonahas 10 votes
  Below the voting transaction hash:
  https://goerli.etherscan.io/tx/0x0707b1fe97d938cc9f82e4078bf0e687b6fe25a783c700753b6e7475d00e1d74
  https://goerli.etherscan.io/tx/0x0f99980e0886b7eb45faa4e681de57ed26092abc0c0921d3a96914efedfcade4
+ 
+ -------------------------------------------------------------------------------------------------------
+I connected to the token contract deployed by Chris. As Chris delegated to my wallet 0x034CF18e2Ff18a5bEe003d46444D3F2743Ca7Ca8 already I don't need to self delegate anymore.
 
+My account does also have 20tokens of Chris token contract.
+
+Proposal 0 Amalfi has 10 votes
+Proposal 1 Cannes has 0 votes
+Proposal 2 Brighton has 0 votes
+Proposal 3 Jersey Shore has 0 votes
+Proposal 4 Barcelonahas 10 votes
+
+voting.... -> I voted with all my votes for Proposal 1 Cannes. 
+
+Proposal 0 Amalfi has 10 votes
+Proposal 1 Cannes has 20 votes
+Proposal 2 Brighton has 0 votes
+Proposal 3 Jersey Shore has 0 votes
+Proposal 4 Barcelonahas 10 votes
+
+Therefore Proposal 1 Cannes is winning as of now.
