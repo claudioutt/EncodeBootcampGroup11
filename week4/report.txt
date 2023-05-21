@@ -1,0 +1,101 @@
+1) Contracts have been deployed:
+--------------------------
+PS C:\Users\giopag81\Solidity\encode-week3> yarn hardhat run .\scripts\DeployERC20Votes2.0.ts
+Connecting to blockchain
+Etherscan key is of length 32
+The last block is 9039384
+Using wallet address 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
+The ERC20 vote contract was deployed at address 0x8C344075F9F48042a465a812Bb80fA649786b4D6 at the
+    block 9039385
+--------------------------
+Target block number is 9039707
+PS C:\Users\giopag81\Solidity\encode-week3> yarn run ts-node --files scripts\DeployBallot2.0.ts "Surf" "Climb" "Sail" "Snowboard" "Kayak"
+Connecting to blockchain
+Etherscan key is of length 32
+Using wallet address 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457
+Balance of 0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457 is 63.61739418142501 WEI
+Proposals:
+Proposal N. 1: Surf
+Proposal N. 2: Climb
+Proposal N. 3: Sail
+Proposal N. 4: Snowboard
+Proposal N. 5: Kayak
+Deploying Ballot contract...
+The last block is 9039407
+
+The tokenized ballot contract was deployed at address
+    0x4Fde4cfa468c6B155916Af85F79bB3818B4b0B35 at the block 9039408
+----------------------------------
+
+BACKEND SWAGGER PART
+2) called the functions getBalance and totalSupply, which returns 0 as expected:
+{
+  "type": "BigNumber",
+  "hex": "0x00"
+}
+
+	
+{
+  "type": "BigNumber",
+  "hex": "0x00"
+}
+
+3) check the proposals:
+They have all 0 votes as expected:
+[
+  "1) Surf has 0 Votes",
+  "2) Climb has 0 Votes",
+  "3) Sail has 0 Votes",
+  "4) Snowboard has 0 Votes",
+  "5) Kayak has 0 Votes"
+]
+
+4) Called function to mint and the function to delegate as a post each with the following body:
+-------buyTokens-----------------
+{
+  "address": "0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457",
+  "value": "0.05",
+  "signature": "string"
+}
+
+return body:
+{
+  "type": 2,
+  "chainId": 5,
+  "nonce": 188,
+  "maxPriorityFeePerGas": {
+    "type": "BigNumber",
+    "hex": "0x59682f00"
+  },
+  "maxFeePerGas": {
+    "type": "BigNumber",
+    "hex": "0x09c10da906"
+  },
+  "gasPrice": null,
+  "gasLimit": {
+    "type": "BigNumber",
+    "hex": "0x02bc0c"
+  },
+  "to": "0x4Fde4cfa468c6B155916Af85F79bB3818B4b0B35",
+  "value": {
+    "type": "BigNumber",
+    "hex": "0xb1a2bc2ec50000"
+  },
+  "data": "0x199548db",
+  "accessList": [],
+  "hash": "0xb571e14a089b2a28190555997068f643542c6ccc1ba7fd6d1a2a27e959ed1c96",
+  "v": 1,
+  "r": "0xd42466dfe7addb9f789647d03d87cf497f236e8a07a972bb2b33f4c25b650b12",
+  "s": "0x2a9c64d0b842a178fe3c1336b5c1a72c72bac9dba724e6300d35723610786cf9",
+  "from": "0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457",
+  "confirmations": 0
+}
+
+----delegate----------------
+{
+  "address": "0xFc4A978B4D7d3A931419d3d5cc0F7Efb408c8457"
+}
+
+5) I called the function to check votingPower to my address and as expected I get block not mined error:
+"ERC20Votes: block not yet mined"
+
