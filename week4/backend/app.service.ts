@@ -58,8 +58,8 @@ export class AppService {
     return this.ERC20Contract.totalSupply();
     }
 
-  getBalanceOf(address: string) {
-    return this.ERC20Contract.balanceOf(address);
+  async getBalanceOf(address: string) {
+    return (await this.ERC20Contract.balanceOf(address)).toString();
   }
 
   getVotingPower(address: string) {
