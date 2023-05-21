@@ -99,3 +99,24 @@ return body:
 5) I called the function to check votingPower to my address and as expected I get block not mined error:
 "ERC20Votes: block not yet mined"
 
+---------------------
+For frontend, I implemented a InstructionsComponent.jsx file that has the following key functions:
+
+1) TokenBalance()
+2) getBalance(signer, setLoading, setTxData) 
+3) GetResults()
+4) getResults(signer, setLoading, setTxData)
+5) RequestTokens()
+6) requestTokens(signer, signature, setLoading, setTxData)
+7) Vote()
+8) vote(signer, signature, setLoading, setTxData)
+
+The images in the folder show the output of the frontend so far. 
+
+It's very ugly and it's missing:
+1) customised voting
+2) self delegation
+
+Next steps are to improve that...
+
+
