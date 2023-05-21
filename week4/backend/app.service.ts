@@ -81,7 +81,6 @@ export class AppService {
      return result;
 }
 
-
   async getTransactionReceipt(hash:string) {
     const tx = await this.provider.getTransaction(hash);
     const receipt = await this.getReceipt(tx);
@@ -90,12 +89,6 @@ export class AppService {
 
   async getReceipt(tx: ethers.providers.TransactionResponse) {
     return await tx.wait();
-  }
-
-
-
-  async requestTokens(address: string, value: string, signature: string) {
-    return this.ERC20Contract.connect(this.signer).mint(address, ethers.utils.parseUnits(value));
   }
 
   async buyVotingTokens (address: string, value: string, signature: string) {
