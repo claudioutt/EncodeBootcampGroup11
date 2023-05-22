@@ -100,12 +100,8 @@ return body:
 "ERC20Votes: block not yet mined"
 
 6) Checked again after block is mined and I get 500 which is as expected:
-{
-  "type": "BigNumber",
-  "hex": "0x01f4"
-}
 
-(Next excersise is to convert the hex type)
+500
 
 7)
 I distributed my voting in the follwing way:
@@ -116,6 +112,8 @@ I distributed my voting in the follwing way:
   "4) Snowboard has 0 Votes",
   "5) Kayak has 200 Votes"
 ]
+
+Now when I check the voting power I got 0 as expected
 
 ---------------------
 For frontend, I implemented a InstructionsComponent.jsx file that has the following key functions:
