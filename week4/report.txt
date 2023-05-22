@@ -118,7 +118,7 @@ FEW UPDATES:
 2) Following Chris idea, I changed the rest of the function such as totalBalance and votingPower so that they return an integer instead of a Hex
 3) To avoid confusion I updated the vote backend function so you can vote for the actual proposal number listed, so proposal 0 becomes proposal 1 and proposal 4, proposal 5 and so on.
 #############################################
-Now when I check the voting power I got 0 as expected
+Now when I check the voting power I got 0 as expected. If I try to vote, I get the expected error message: \"message\":\"execution reverted: No Voting Power\",
 
 ---------------------
 For frontend, I implemented a InstructionsComponent.jsx file that has the following key functions:
