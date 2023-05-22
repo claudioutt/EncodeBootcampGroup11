@@ -54,16 +54,16 @@ export class AppService {
     return tokenAddress;
     }
 
-  getTotalSupply() {
-    return this.ERC20Contract.totalSupply();
+ async getTotalSupply() {
+    return (await this.ERC20Contract.totalSupply()).toString();
     }
 
   async getBalanceOf(address: string) {
     return (await this.ERC20Contract.balanceOf(address)).toString();
   }
 
-  getVotingPower(address: string) {
-    return this.BallotContract.votingPower(address);
+  async getVotingPower(address: string) {
+    return (await this.BallotContract.votingPower(address)).toString();
   }
 
 
