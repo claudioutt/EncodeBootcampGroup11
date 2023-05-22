@@ -100,7 +100,8 @@ export class AppService {
     return this.ERC20Contract.connect(this.signer).delegate(address);
 }
 
-  async vote(proposal: Number, voteNumbers: Number ) {
+  async vote(proposal: number, voteNumbers: number ) {
+    const index: number = voteNumbers - 1;
     return this.BallotContract.connect(this.signer).vote(proposal, voteNumbers);
   }
 }
