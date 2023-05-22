@@ -102,6 +102,6 @@ export class AppService {
 
   async vote(proposal: number, voteNumbers: number ) {
     const index: number = voteNumbers - 1;
-    return this.BallotContract.connect(this.signer).vote(proposal, voteNumbers);
+    return this.BallotContract.connect(this.signer).vote(proposal, index);
   }
 }
