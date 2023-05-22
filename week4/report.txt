@@ -113,7 +113,7 @@ I distributed my voting in the follwing way:
   "5) Kayak has 200 Votes"
 ]
 ########################################
-MAJOR UPDATES PERFORMED:
+FEW UPDATES:
 1) changed code in tokenizedBallot.sol so that it calculates the voting power reduced by 10**16. So if you a 18 decimal of the token you have 10 votes and once you cast all 10 votes the voting power returns 0 so you can´t vote anymore
 2) Following Chris idea, I changed the rest of the function such as totalBalance and votingPower so that they return an integer instead of a Hex
 3) To avoid confusion I updated the vote backend function so you can vote for the actual proposal number listed, so proposal 0 becomes proposal 1 and proposal 4, proposal 5 and so on.
