@@ -48,18 +48,16 @@ contract Ballot {
     
     function vote(uint proposal, uint256 amountToVote) external { 
         // TODO: compute the voting power
-        uint256 delegatedAmount = amountToVote / VOTE_RATIO;
+        uint256 delegatedAmount = amountToVote * VOTE_RATIO;
         require(
-            votingPower(msg.sender) >= delegatedAmount
+            votingPower(msg.sender) >= amountToVote, "No Voting Power"
         );
-
-        votingPowerSpent[msg.sender] += amountToVote;
+        votingPowerSpent[msg.sender] += delegatedAmount;
         proposals[proposal].voteCount += amountToVote;
     }
 
     function votingPower(address account) public 
     view returns (uint256 votingPower_) {
-        //VOTE_DIVIDEND;
         votingPower_ = 
         (ERC20Token.getPastVotes(account, targetBlockNumber) 
         - votingPowerSpent[account]) / VOTE_RATIO;
