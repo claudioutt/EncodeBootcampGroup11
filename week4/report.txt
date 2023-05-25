@@ -138,6 +138,31 @@ It's very ugly and it's missing:
 1) customised voting
 2) self delegation
 
-Next steps are to improve that...
+################################################################
+FRONTEND PART 
+--- UPDATED "InstructionComponents.jsx" IN FRONTEND FOLDER
+
+1) added functions Delegate() and Vote(), so to be able to add number of votes next to the proposal and click a botton to vote that proposal.
+(After the voting it shows the voting transaction. To view the updated ballot, wait for the confirmation on metamask and refresh the page)
+2) To obtain the Token contract address and ballot contract address I have created to functions:
+function _getTokenAddress() {
+	return fetch('http://localhost:3001/token-address')
+	  .then(response => response.text())
+	  .then(data => data)
+	  .catch(error => {
+		console.error('Error fetching token contract address:', error);
+	  });
+  }
+
+function _getBallotAddress() {
+		return fetch('http://localhost:3001/ballot-address')
+			.then(response => response.text())
+			.then(data => data)
+			.catch(error => {
+			console.error('Error fetching ballot contract address:', error);
+			});
+	}
+
+3) Experimented with delegating and voting. Please see snapshots in the directory frontend for more details
 
 
