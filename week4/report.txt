@@ -144,7 +144,7 @@ FRONTEND PART
 
 1) added functions Delegate() and Vote(), so to be able to add number of votes next to the proposal and click a botton to vote that proposal.
 (After the voting it shows the voting transaction. To view the updated ballot, wait for the confirmation on metamask and refresh the page)
-2) To obtain the Token contract address and ballot contract address I have created to functions:
+2) To obtain the Token contract address and Ballot contract address I have created 2 functions:
 function _getTokenAddress() {
 	return fetch('http://localhost:3001/token-address')
 	  .then(response => response.text())
